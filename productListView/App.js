@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, Image, ListView} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, Image, ListView, TouchableOpacity} from 'react-native';
 import Meteor, { withTracker, MeteorListView } from 'react-native-meteor';
 
 /*Meteor.connect('ws://103.250.153.107:3003/websocket');*/ //do this only once
@@ -46,10 +46,23 @@ class App extends Component<{}> {
         for (let j = 0; j<2; j++){
           row.push(
 
+              <View style={styles.container1}>
+                <View style={styles.elevationImage}>
                 <Image key={i.toString()+j} source={{uri:settingsdata[i+j].productInfo.images[0]}} style={styles.frames}/>
+                </View>
+                <Text numberOfLines={1} style={styles.TextTitle}>{settingsdata[i+j].productInfo.productName}</Text>
+                <TouchableOpacity key={i.toString()+j+'call'}>
+                  <Text style={styles.TextButton}>Call</Text>
+                </TouchableOpacity>
+                <TouchableOpacity key={i.toString()+j+'emailnow'}>
+                  <Text style={styles.TextButton}>Email Now</Text>
+                </TouchableOpacity>
+                <TouchableOpacity key={i.toString()+j+'moreinfo'}>
+                  <Text style={styles.TextButton}>More Info</Text>
+                </TouchableOpacity>
+              </View>
 
-
-              )
+          )
         }
         rows.push( <View key={i+1000} style={styles.row}>{row}</View>)
       }
@@ -158,7 +171,7 @@ const styles = StyleSheet.create({
   card: {
     borderWidth: 3,
     borderRadius: 3,
-    borderColor: '#000',
+    borderColor: '#ffffff',
     width: 300,
     height: 300,
     padding: 10
@@ -231,10 +244,41 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   },
   frames: {
-    flex: 1,
     margin: 10,
+    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 200
+    height: 200,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+  },
+  container1: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    borderRadius: 15,
+    margin: 7,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  elevationImage: {
+    elevation: 5
+  },
+  TextTitle: {
+    color: 'black',
+    margin: 1,
+    padding: 1,
+    textAlign: 'center',
+    textAlignVertical: 'center'
+  },
+  TextButton: {
+    color: 'black',
+    margin: 5,
+    padding: 5,
+    backgroundColor: '#55e1ff',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    borderRadius: 15
   }
 });
